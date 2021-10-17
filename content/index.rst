@@ -1,4 +1,4 @@
-Graph Neural Networks and Transformer workshop: Neural Networks for sets
+Graph Neural Networks and Transformer workshop
 ===========
 
 Graph Neural Networks and Transformers are neural network architectures which are quickly gaining in popularity due to how many problems can easily be modeled as graphs and sets. In this workshop we will take a deep dive into these architecture and how you can use them to solve complex problems where the input domain can be of different size.
@@ -7,7 +7,7 @@ Graph Neural Networks and Transformers are neural network architectures which ar
 
 .. prereq::
 
-   This course assumes familiarity with deep learning, attendendts should have implemented neural networks before using PyTorch. It also assumes basic understanding of linera algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.
+   This course assumes familiarity with deep learning, attendants should have implemented neural networks before using PyTorch. It also assumes basic understanding of linear algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.
 
 
 
@@ -51,15 +51,15 @@ About the course
 This lesson material is developed by the `EuroCC National Competence Center
 Sweden (ENCCS) <https://enccs.se/>`_ and the `Research Institutes of Sweden <https://ri.se/>`_.
 
-The lesson material is licensed under `CC-BY-4.0
-<https://creativecommons.org/licenses/by/4.0/>`_ and can be reused in any form
+The lesson material is licensed under `CC-BY-SA-4.0
+<https://creativecommons.org/licenses/by-sa/4.0/>`_ and can be reused in any form
 (with appropriate credit) in other courses and workshops.
 Instructors who wish to teach this lesson can refer to the :doc:`guide` for
 practical advice.
 
 See also
 --------
-There are a growin number of resourses for graph neural network, here are good places to start:
+There are a growing number of resourses for graph neural network, here are good places to start:
 
 - Stanford CS224W: Machine Learning with Graphs. This material covers all manner of statistical learning on graphs, as well as many fundamental topics from graph theory. The lectures and notebook exercises are available online
 
