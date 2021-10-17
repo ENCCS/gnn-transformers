@@ -1,5 +1,5 @@
 Graph Neural Networks and Transformer workshop
-===========
+==============================================
 
 Graph Neural Networks and Transformers are neural network architectures which are quickly gaining in popularity due to how many problems can easily be modeled as graphs and sets. In this workshop we will take a deep dive into these architecture and how you can use them to solve complex problems where the input domain can be of different size.
 
@@ -21,11 +21,21 @@ The material is divided into four main blocks:
    150 min ; :doc:`gnn_ground_up`
    120 min ; :doc:`gnn_to_transformers`
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Notebooks and colab
+   
+   notebooks_and_colab
+   
 
 .. toctree::
    :maxdepth: 1
    :caption: The lesson
-
+   
+   graph_basics
+   dataset_and_deepdive
+   gnn_ground_up
+   gnn_to_transformers
 
 .. toctree::
    :maxdepth: 1
@@ -33,7 +43,6 @@ The material is divided into four main blocks:
 
    quick-reference
    guide
-
 
 
 .. _learner-personas:
