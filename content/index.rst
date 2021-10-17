@@ -16,7 +16,10 @@ The material is divided into four main blocks:
    :widths: auto
    :delim: ;
 
-   20 min ; :doc:`filename`
+   120 min ; :doc:`graph_basics`
+   150 min ; :doc:`dataset_and_deepdive`
+   150 min ; :doc:`gnn_ground_up`
+   120 min ; :doc:`gnn_to_transformers`
 
 
 .. toctree::
