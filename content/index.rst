@@ -10,6 +10,7 @@ Graph Neural Networks and Transformers are neural network architectures which ar
    This course assumes familiarity with deep learning, attendants should have implemented neural networks before using PyTorch. It also assumes basic understanding of linear algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.
 
 
+The material is divided into four main blocks:
 
 .. csv-table::
    :widths: auto
