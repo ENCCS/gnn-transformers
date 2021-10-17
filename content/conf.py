@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = "gnn_transformer_workhop"
+project = "Graph Neural Networks and Transformers"
 copyright = "2021, GNN and Transformer workshop and individual contributors."
 author = "GNN and Transformer workshop and individual contributors."
 github_user = "ENCCS"
