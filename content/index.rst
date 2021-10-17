@@ -30,7 +30,7 @@ The material is divided into four main blocks:
 
 .. toctree::
    :maxdepth: 1
-   :caption: The lesson
+   :caption: The Workshop
    
    graph_basics
    dataset_and_deepdive
