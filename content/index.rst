@@ -4,7 +4,6 @@ Graph Neural Networks and Transformer workshop
 Graph Neural Networks and Transformers are neural network architectures which are quickly gaining in popularity due to how many problems can easily be modeled as graphs and sets. In this workshop we will take a deep dive into these architecture and how you can use them to solve complex problems where the input domain can be of different size.
 
 
-
 .. prereq::
 
    This course assumes familiarity with deep learning, attendants should have implemented neural networks before using PyTorch. It also assumes basic understanding of linear algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.

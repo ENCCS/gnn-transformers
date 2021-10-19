@@ -7,7 +7,7 @@ variables, well go into details of how to use Embedding layers to create dense v
 and continuous variables to a single feature vector.
 
 * `Categorical Variables <https://colab.research.google.com/drive/1Ztswb43t3IkJamX0Zmn-LbgLETgt9y0W?usp=sharing>`_
-* `Embeddings in practice <https://colab.research.google.com/drive/1Ztswb43t3IkJamX0Zmn-LbgLETgt9y0W?usp=sharing>`_
+* `Embeddings in practice <https://colab.research.google.com/drive/1tBDJRZC-px_x-e4-08mmbTTuD-RBgHLe?usp=sharing>`_
 * `Graphs in code <https://colab.research.google.com/drive/1-oW_CybtpErLA3uIZNDFxLm_vUzYax3F?usp=sharing>`_
 * `[Optional] Don't use one-hot vectors <https://colab.research.google.com/drive/1FEwjEn5N67GBEXe4xXv-V0sve60lS-Qu?usp=sharing>`_
    
