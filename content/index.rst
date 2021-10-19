@@ -85,7 +85,12 @@ There are a growing number of resourses for graph neural network, here are good 
 
 * `Stanford CS224W: Machine Learning with Graphs <http://web.stanford.edu/class/cs224w/>`_. This material covers all manner of statistical learning on graphs, as well as many fundamental topics from graph theory. The lectures and notebook exercises from previous offerings of the course are available online.
 
-* Geometrical Deep Learning: The Erlangen program of ML: This work by Bronstein et. al. takes a unifying perspective on Graph Neural Networks and show how it encapsulates very general ideas in deep learning. This `invited talk <https://iclr.cc/virtual/2021/invited-talk/3717>`_ at ICLR 2021 lays out the ideas which is further expanded on in the pre-print book `Geometric Deep Learning: Grids, Groups, Graphs, Geodesics, and Gauges <https://arxiv.org/abs/2104.13478>`_.
+* `Geometrical Deep Learning <https://geometricdeeplearning.com/>`_ : The Erlangen program of ML: This work by Bronstein et. al. takes a unifying perspective 
+  on Graph Neural Networks and show how it encapsulates very general ideas in deep learning. There are multiple treatments, all of which are excellent:
+  
+  - `Invited talk <https://iclr.cc/virtual/2021/invited-talk/3717>`_ at ICLR 2021 lays out the ideas
+  - The pre-print book `Geometric Deep Learning: Grids, Groups, Graphs, Geodesics and Gauges <https://arxiv.org/abs/2104.13478>`_ expands on this. 
+  - A series of `video lecture <https://youtu.be/PtA0lg_e5nAwhich>`_ covers the material in depth.
 
 * `PyTorch Geometric <https://pytorch-geometric.readthedocs.io/en/latest/>`_: This framework is quickly becoming the `de-facto` package for working with Graph Neural Networks. It doesn't support the Transformer approach we show in this workshop, but for regular Graph Neural Networks it's a high level framework with efficient kernels for sparse computation.
 
