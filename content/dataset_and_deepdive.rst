@@ -7,5 +7,6 @@ they are intuitively represented by graphs and allow us to work with real data f
 
 The lesson ends with trying out a Graph Neural Network on a molecular prediction task without going in to the details of the network architecture.
 
-* `Dataset and Training a GNN <https://colab.research.google.com/drive/1z-k4RRaV9X1TV9zYw7M1CR2waS_vGa-2?usp=sharing>`_
+* `GNN Overview <https://colab.research.google.com/drive/1z-k4RRaV9X1TV9zYw7M1CR2waS_vGa-2?usp=sharing>`_
+* `Dataset and Dataloader <https://colab.research.google.com/drive/1p5v0uZR0mULm_ObwlGGB1M4EyNvKz9BX?usp=sharing>`_
 * `[Optional] Scaffold splitting <https://colab.research.google.com/drive/1KYo24cj0D-avj-R_mOCf68-btOSSSjWw?usp=sharing>`_
