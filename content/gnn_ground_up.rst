@@ -9,4 +9,4 @@ One technique which we will use often is _broadcasting_ one tensor over another.
 
 * `Graph Neural Network building blocks <https://colab.research.google.com/drive/1--bM7U-3rbqJ-lv9nbyhmuxy0zihIsly?usp=sharing>`_
 * `Full GNN for Graph prediction <https://colab.research.google.com/drive/1ydhIs1gFPGZCh7EuiF1VfU-anQxjjQ8q?usp=sharing>`_
-* `Prediction Heads <https://colab.research.google.com/drive/1Z_2XRzvwvdGtWssPwpKk_3O9TWm9Qkux?usp=sharing>`_
+* `[Optional, incomplete] Prediction Heads <https://colab.research.google.com/drive/1Z_2XRzvwvdGtWssPwpKk_3O9TWm9Qkux?usp=sharing>`_
