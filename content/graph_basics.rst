@@ -6,6 +6,15 @@ how to represent the different variables types we typically encounter: continuou
 variables, well go into details of how to use Embedding layers to create dense vectors and how we can combine multiple categorical
 and continuous variables to a single feature vector.
 
+Workshop notebooks
+------------------
+
+* `Representing graphs for neural networks <https://colab.research.google.com/drive/1jEAribsUhmphmzVhLSAy1HmEVU0By7Oj?usp=sharing>`_
+
+Self-study notebooks
+--------------------
+
+* `Vector sums vs concatenation <https://colab.research.google.com/drive/16MfAFFUeWTphNpYaKuAv7iQmi4lCi_cl?usp=sharing>`_
 * `Categorical Variables <https://colab.research.google.com/drive/1Ztswb43t3IkJamX0Zmn-LbgLETgt9y0W?usp=sharing>`_
 * `Embeddings in practice <https://colab.research.google.com/drive/1tBDJRZC-px_x-e4-08mmbTTuD-RBgHLe?usp=sharing>`_
 * `Graphs in code <https://colab.research.google.com/drive/1-oW_CybtpErLA3uIZNDFxLm_vUzYax3F?usp=sharing>`_
