@@ -9,16 +9,9 @@ Graph Neural Networks and Transformers are neural network architectures which ar
    This course assumes familiarity with deep learning, attendants should have implemented neural networks before using PyTorch. It also assumes basic understanding of linear algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.
 
 
-The material is divided into four main blocks:
 
-.. csv-table::
-   :widths: auto
-   :delim: ;
+The material is divided into four sessions, each corresponding to roughly 2 hours of work. The material is designed to be used on Google Colab, you can find links to the online notebooks in the offline versions maintained here.
 
-   120 min ; :doc:`graph_basics`
-   150 min ; :doc:`dataset_and_deepdive`
-   150 min ; :doc:`gnn_ground_up`
-   120 min ; :doc:`gnn_to_transformers`
 
 .. toctree::
    :maxdepth: 1
@@ -30,11 +23,37 @@ The material is divided into four main blocks:
 .. toctree::
    :maxdepth: 1
    :caption: The Workshop
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Session 1
+
+   notebooks/session_1/1a_representing_graphs_for_neural_networks_solutions.ipynb
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Session 1 extra material
+
+   notebooks/session_1/1b_vector_sums_vs_concatenation.ipynb
    
-   graph_basics
-   dataset_and_deepdive
-   gnn_ground_up
-   gnn_to_transformers
+.. toctree::
+   :maxdepth: 1
+   :caption: Session 2
+   
+   notebooks/session_2/2a_full_training_pipeline.ipynb
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Session 3
+   
+   notebooks/session_3/3a_Graph_Neural_Network_Encoder_solutions.ipynb
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Session 4
+   
+   notebooks/session_4/4a_GNNs_to_Transformers.ipynb
+   
 
 .. toctree::
    :maxdepth: 1

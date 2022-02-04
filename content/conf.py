@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "Graph Neural Networks and Transformers"
-copyright = "2021, GNN and Transformer workshop and individual contributors."
+copyright = "2022, GNN and Transformer workshop and individual contributors."
 author = "GNN and Transformer workshop and individual contributors."
 github_user = "ENCCS"
 github_repo_name = "gnn_transformers"
@@ -44,7 +44,7 @@ extensions = [
 # jupyter_execute_notebooks = "off"
 # jupyter_execute_notebooks = "auto"   # *only* execute if at least one output is missing.
 # jupyter_execute_notebooks = "force"
-jupyter_execute_notebooks = "cache"
+jupyter_execute_notebooks = "off"
 
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
