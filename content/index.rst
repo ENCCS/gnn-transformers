@@ -1,25 +1,36 @@
 Graph Neural Networks and Transformer workshop
 ==============================================
 
+.. raw:: html
+    
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/ZS00tnHVRbU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 Graph Neural Networks and Transformers are neural network architectures which are quickly gaining in popularity due to how many problems can easily be modeled as graphs and sets. In this workshop we will take a deep dive into these architecture and how you can use them to solve complex problems where the input domain can be of different size.
 
 
 .. prereq::
 
-   This course assumes familiarity with deep learning, attendants should have implemented neural networks before using PyTorch. It also assumes basic understanding of linear algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.
+   This material assumes familiarity with deep learning, attendants should have implemented neural networks before using PyTorch. It also assumes basic understanding of linear algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.
 
 
 
 The material is divided into four sessions, each corresponding to roughly 2 hours of work. The material is designed to be used on Google Colab, you can find links to the online notebooks in the offline versions maintained here.
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Presentations
+   
+   presentations
+
 
 .. toctree::
    :maxdepth: 1
    :caption: Notebooks and colab
-   
-   notebooks_and_colab
-   
 
+   notebooks_and_colab
+
+   
 .. toctree::
    :maxdepth: 1
    :caption: The Workshop
