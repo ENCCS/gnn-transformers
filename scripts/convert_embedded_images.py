@@ -1,7 +1,7 @@
 import argparse
+from hashlib import new
 from sqlalchemy import desc
 
-from sympy import arg
 import re
 from pathlib import Path
 import json
@@ -17,6 +17,7 @@ import json
 full_pattern = r'\!\[([^\]]*)\]\((data:image/png;base64,[A-Za-z0-9+/=]*)\)'
 compiled_pattern = re.compile(full_pattern)
 replacement = r'<img src="\2" alt="\1">'
+
 def convert_line(line):
     converted_line = re.sub(compiled_pattern, replacement, line)
     
@@ -27,6 +28,50 @@ def convert_cell(cell):
         converted_source = [convert_line(line) for line in cell['source']]
         cell['source'] = converted_source
     return cell
+
+exercise_pattern = re.compile(r".*\*\*(Task[ \d]*|Question[ \d]*):(.*)\*\*")
+exercise_replacement = '````{exercise} \\1\n\\2\n````'
+solution_pattern = re.compile(r".*\*\*(?:Solution|Answer):(.*)\*\*")
+
+
+
+def annotate_lines(lines):
+    i = 0
+    new_lines = []
+    while i < len(lines):
+        line = lines[i]
+        m = re.match(solution_pattern, line)
+        if m is not None:
+            line = "`"*4 + "{solution}\n"
+            new_lines.append(line)
+            new_lines.extend(lines[i+1:-1])
+            new_lines.append(lines[-1] + '\n')
+            new_lines.append("`"*4)
+            break
+        else:
+            m = re.match(exercise_pattern, line)
+            if m is not None:
+                line = re.sub(exercise_pattern, exercise_replacement, line)
+            new_lines.append(line)
+        i += 1
+
+    return new_lines
+
+
+def annotate_solutions(cells):
+    # Since we might want to consume many cells, we use a while instead of foor loop
+    i = 0
+    annotated_cells = []
+    while i < len(cells):
+        cell = cells[i] 
+        if cell['cell_type'] == 'markdown':
+            lines = annotate_lines(cell['source'])
+            cell['source'] = lines
+        annotated_cells.append(cell)
+        i += 1
+    return annotated_cells
+        
+
 
 def main():
     parser = argparse.ArgumentParser(description="Convert embedding images as markdown directives to html img tags")    
@@ -39,9 +84,13 @@ def main():
         with open(notebook_path, encoding='utf8') as notebook_fp:
             notebook_json = json.load(notebook_fp)
         converted_cells = [convert_cell(cell) for cell in notebook_json['cells']]
-        notebook_json['cells'] = converted_cells
+        annotated_cells = annotate_solutions(converted_cells)
+        
+        notebook_json['cells'] = annotated_cells
         if 'widgets' in notebook_json['metadata']:
             del notebook_json['metadata']['widgets']
+
+
         #output_dir = args.notebook.parent / 'converted'
         #output_dir.mkdir(exist_ok=True)
         #output_file = output_dir / args.notebook.name
