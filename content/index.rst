@@ -73,6 +73,12 @@ The material is divided into four sessions, each corresponding to roughly 2 hour
    quick-reference
    guide
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Cluster guide
+
+   lumi
+
 
 .. _learner-personas:
 
