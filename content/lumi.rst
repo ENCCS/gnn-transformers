@@ -15,7 +15,7 @@ Once you are logged in at a login node, you need to copy the workshop material t
 
 .. code-block:: shell
 
-   user@uan01:~> cp -R /project/project_465000485/gnn_transformers_workshop/notebooks $HOME/
+   YOUR_USERNAME@uan01:~> cp -R /project/project_465000485/gnn_transformers_workshop/notebooks $HOME/
 
 Starting a jupyter notebook server
 ----------------------------------
@@ -24,7 +24,7 @@ Once the material is copied to your home directory you can start the jupyter ser
 
 .. code-block:: shell
 
-   user@uan01:~> /project/project_465000485/gnn_transformers_workshop/start-jupyter.sh
+   YOUR_USERNAME@uan01:~> /project/project_465000485/gnn_transformers_workshop/start-jupyter.sh
 
 This will do a couple of things:
 
@@ -43,12 +43,12 @@ Eventually, once the jupyter server has started you will get some output like th
 
     Linux / macOS / MobaXTerm / Cmder:
     -----------------------------------------------------------------
-    ssh -N -L 8888:nid005517-nmn:8888  ylipaaer@lumi.csc.fi
+    ssh -N -L 8888:nid005517-nmn:8888  YOUR_USERNAME@lumi.csc.fi
     -----------------------------------------------------------------
 
     PuTTy:
     -----------------------------------------------------------------
-    ssh -N -L 8888:nid005517-nmn:8888 ylipaaer@lumi.csc.fi
+    ssh -N -L 8888:nid005517-nmn:8888 YOUR_USERNAME@lumi.csc.fi
     Set Source (8888) and Destination (nid005517-nmn:8888) in:
     PuTTy -> Connection -> SSH -> Tunnels
     -----------------------------------------------------------------
@@ -59,23 +59,26 @@ Eventually, once the jupyter server has started you will get some output like th
     http://localhost:8888/?token=36ffa17d87a728f3e4611234e6957afafc35e6ae30f63d82
     -----------------------------------------------------------------
 
-These are the instructions you need to follow to connect to the compute node. Note that you need to also tell ssh what key to use, so if for example your key is located in `~/.ssh/lumi_ed25519`, use the command:
+These are the instructions you need to follow to connect to the compute node, in this 
+example the compute node has the hostname ``nid005517-nmn``, but you will in all 
+likelihood have a different one. Note that you need to also tell ssh what key to use, 
+so if for example your key is located in `~/.ssh/lumi_ed25519`, use the command:
 
 .. code-block:: shell
 
-    you@your_own_machine:~> ssh -N -L 8888:nid005517-nmn:8888  ylipaaer@lumi.csc.fi -i ~/.ssh/lumi_ed25519
+    you@your_own_machine:~> ssh -N -L 8888:nid005517-nmn:8888  YOUR_USERNAME@lumi.csc.fi -i ~/.ssh/lumi_ed25519
 
 
 Once you have run this command you now have a tunnel connecting the port 8888 at your local machine to port 8888 (which the jupyter server is listening to) at the compute node.
 
-**N.B. This SSH connection to be open during the time you use jupyter, it acts as a tunnel between your local computer and the jupyter server on the compute node.**
+**N.B. This SSH connection need to be open during the time you use jupyter, it acts as a tunnel between your local computer and the jupyter server on the compute node.**
 
 If you get an error message that the port is unavailable you are likely running jupyter locally. In this case, forward another local port (e.g. 8900) to the compute node:
 
 .. code-block:: shell
 
     # Only run this if your local port 8888 is unavailable
-    you@your_own_machine:~> ssh -N -L 8900:nid005517-nmn:8888  ylipaaer@lumi.csc.fi -i ~/.ssh/lumi_ed25519
+    you@your_own_machine:~> ssh -N -L 8900:nid005517-nmn:8888  YOUR_USERNAME@lumi.csc.fi -i ~/.ssh/lumi_ed25519
 
 
 Now you can open a browser pointing it to the local host, using the URL highlighted in the output. You should be greeted by a jupyter server directory listing.
