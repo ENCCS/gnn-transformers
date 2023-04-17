@@ -11,11 +11,19 @@ You will need a user account at LUMI and be able to connect through SSH to the l
 Copying the workshop material
 -----------------------------
 
-Once you are logged in at a login node, you need to copy the workshop material to your home directory. Run the command below to do so:
+Once you are logged in at a login node, you need to copy the workshop material to your home directory. To handle changes in the notebooks, we use git to track changes.
 
 .. code-block:: shell
 
-   YOUR_USERNAME@uan01:~> cp -R /project/project_465000485/gnn_transformers_workshop/notebooks $HOME/
+   YOUR_USERNAME@uan01:~> git clone /project/project_465000485/gnn_transformers_workshop/gnn_transformers_notebooks $HOME/notebooks
+
+This creates a new directory called ``notebooks`` in your home directory. This is a git repository which refers to a directory in the project folder. You can update this directory to the latest version using:
+
+.. code-block:: shell
+
+   YOUR_USERNAME@uan01:~> git -C $HOME/notebooks pull
+
+
 
 Starting a jupyter notebook server
 ----------------------------------
@@ -61,7 +69,15 @@ Eventually, once the jupyter server has started you will get some output like th
 
 These are the instructions you need to follow to connect to the compute node, in this 
 example the compute node has the hostname ``nid005517-nmn``, but you will in all 
-likelihood have a different one. Note that you need to also tell ssh what key to use, 
+likelihood have a different one. What you see displayed is the output of your slurm job, 
+you can safely exit from this display using ``CTR-C``. The script also exports the ID of the job to the environmental variable ``$JOB_ID``, so you can easily cancel the job by just running:
+
+.. code-block:: shell
+    # You can run this command if you wish to cancel the job 
+    you@your_own_machine:~> scancel $JOB_ID
+
+
+Note that you need to also tell ssh what key to use, 
 so if for example your key is located in `~/.ssh/lumi_ed25519`, use the command:
 
 .. code-block:: shell
