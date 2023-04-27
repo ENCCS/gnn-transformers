@@ -130,7 +130,7 @@ def setup(app):
 import os
 if os.environ.get('GITHUB_REF', '') == 'refs/heads/main':
     html_js_files = [
-        ('https://plausible.io/js/script.js', {"data-domain": "enccs.github.io/gnn_transformers", "defer": "\
+        ('https://plausible.io/js/script.js', {"data-domain": "enccs.github.io/gnn-transformers", "defer": "\
 defer"}),
     ]
         
