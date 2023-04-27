@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running the material on the LUMI super computer &mdash; Graph Neural Networks and Transformers  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/overrides.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script data-domain="enccs.github.io/gnn-transformers" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="prev" title="Instructor’s guide" href="../guide/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Graph Neural Networks and Transformers
+              <img src="../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Presentations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../presentations/">Presentations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks and colab</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks_and_colab/">Notebooks and Colab</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 1</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/session_1/1a_representing_graphs_for_neural_networks_solutions/">Representing graphs for neural networks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 1 extra material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/session_1/1b_vector_sums_vs_concatenation/">Summing or concatenating embeddings?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 2</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/session_2/2a_full_training_pipeline/">Datasets, Dataloaders and Training</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 3</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/session_3/3a_Graph_Neural_Network_Encoder_solutions/">Implementing a Graph Neural Network</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 4</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/session_4/4a_GNNs_to_Transformers/">GNNs to Transformers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cluster guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running the material on the LUMI super computer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequesits">Prerequesits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#copying-the-workshop-material">Copying the workshop material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#starting-a-jupyter-notebook-server">Starting a jupyter notebook server</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Graph Neural Networks and Transformers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Running the material on the LUMI super computer</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/gnn_transformers/blob/main/content/lumi.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-the-material-on-the-lumi-super-computer">
+<h1>Running the material on the LUMI super computer<a class="headerlink" href="#running-the-material-on-the-lumi-super-computer" title="Permalink to this heading"></a></h1>
+<p>In this guide we will go through how you can run the workshop material on the LUMI super computer.</p>
+<section id="prerequesits">
+<h2>Prerequesits<a class="headerlink" href="#prerequesits" title="Permalink to this heading"></a></h2>
+<p>You will need a user account at LUMI and be able to connect through SSH to the login nodes. This will also have left you with a pair of SSH keys, you will need them later in this guide.</p>
+</section>
+<section id="copying-the-workshop-material">
+<h2>Copying the workshop material<a class="headerlink" href="#copying-the-workshop-material" title="Permalink to this heading"></a></h2>
+<p>Once you are logged in at a login node, you need to copy the workshop material to your home directory. To handle changes in the notebooks, we use git to track changes.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>YOUR_USERNAME@uan01:~&gt;<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>/project/project_465000485/gnn_transformers_workshop/gnn_transformers_notebooks<span class="w"> </span><span class="nv">$HOME</span>/notebooks
+</pre></div>
+</div>
+<p>This creates a new directory called <code class="docutils literal notranslate"><span class="pre">notebooks</span></code> in your home directory. This is a git repository which refers to a directory in the project folder. You can update this directory to the latest version using:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>YOUR_USERNAME@uan01:~&gt;<span class="w"> </span>git<span class="w"> </span>-C<span class="w"> </span><span class="nv">$HOME</span>/notebooks<span class="w"> </span>pull
+</pre></div>
+</div>
+</section>
+<section id="starting-a-jupyter-notebook-server">
+<h2>Starting a jupyter notebook server<a class="headerlink" href="#starting-a-jupyter-notebook-server" title="Permalink to this heading"></a></h2>
+<p>Once the material is copied to your home directory you can start the jupyter server as a batch job:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>YOUR_USERNAME@uan01:~&gt;<span class="w"> </span>/project/project_465000485/gnn_transformers_workshop/start-jupyter.sh
+</pre></div>
+</div>
+<p>This will do a couple of things:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>First it will submit a batch script (located in <code class="docutils literal notranslate"><span class="pre">/project/project_465000485/gnn_transformers_workshop/start-jupyter.sh</span></code>) to
+the Slurm resource management system.This script sets up a jupyter notebook server as
+well as a SSH server on the compute node. The server assumes that there’s a <code class="docutils literal notranslate"><span class="pre">$HOME/notebooks</span></code> directory, if not it will fail to start. Please perform the step above “Copying the workshop material”.</p></li>
+<li><p>It then starts monitoring the output file from of the slurm job (named something like slurm_JOBID.out)
+using the <cite>tail</cite> program.</p></li>
+</ul>
+</div></blockquote>
+<p>Eventually, once the jupyter server has started you will get some output like the one below. The important sections are highlighted:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Run<span class="w"> </span>on<span class="w"> </span><span class="nb">local</span><span class="w"> </span>machine<span class="w"> </span>to<span class="w"> </span>forward<span class="w"> </span>jupyter<span class="w"> </span>from<span class="w"> </span>Lumi
+
+Linux<span class="w"> </span>/<span class="w"> </span>macOS<span class="w"> </span>/<span class="w"> </span>MobaXTerm<span class="w"> </span>/<span class="w"> </span>Cmder:
+-----------------------------------------------------------------
+<span class="hll">ssh<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span><span class="m">8888</span>:nid005517-nmn:8888<span class="w">  </span>YOUR_USERNAME@lumi.csc.fi
+</span>-----------------------------------------------------------------
+
+PuTTy:
+-----------------------------------------------------------------
+<span class="hll">ssh<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span><span class="m">8888</span>:nid005517-nmn:8888<span class="w"> </span>YOUR_USERNAME@lumi.csc.fi
+</span><span class="hll">Set<span class="w"> </span>Source<span class="w"> </span><span class="o">(</span><span class="m">8888</span><span class="o">)</span><span class="w"> </span>and<span class="w"> </span>Destination<span class="w"> </span><span class="o">(</span>nid005517-nmn:8888<span class="o">)</span><span class="w"> </span><span class="k">in</span>:
+</span>PuTTy<span class="w"> </span>-&gt;<span class="w"> </span>Connection<span class="w"> </span>-&gt;<span class="w"> </span>SSH<span class="w"> </span>-&gt;<span class="w"> </span>Tunnels
+-----------------------------------------------------------------
+
+
+Copy/Paste<span class="w"> </span>this<span class="w"> </span>URL<span class="w"> </span>into<span class="w"> </span>your<span class="w"> </span>browser
+-----------------------------------------------------------------
+<span class="hll">http://localhost:8888/?token<span class="o">=</span>36ffa17d87a728f3e4611234e6957afafc35e6ae30f63d82
+</span>-----------------------------------------------------------------
+</pre></div>
+</div>
+<p>These are the instructions you need to follow to connect to the compute node, in this
+example the compute node has the hostname <code class="docutils literal notranslate"><span class="pre">nid005517-nmn</span></code>, but you will in all
+likelihood have a different one. What you see displayed is the output of your slurm job,
+you can safely exit from this display using <code class="docutils literal notranslate"><span class="pre">CTR-C</span></code>. The script also exports the ID of the job to the environmental variable <code class="docutils literal notranslate"><span class="pre">$JOB_ID</span></code>, so you can easily cancel the job by just running:</p>
+<p>Note that you need to also tell ssh what key to use,
+so if for example your key is located in <cite>~/.ssh/lumi_ed25519</cite>, use the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>you@your_own_machine:~&gt;<span class="w"> </span>ssh<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span><span class="m">8888</span>:nid005517-nmn:8888<span class="w">  </span>YOUR_USERNAME@lumi.csc.fi<span class="w"> </span>-i<span class="w"> </span>~/.ssh/lumi_ed25519
+</pre></div>
+</div>
+<p>Once you have run this command you now have a tunnel connecting the port 8888 at your local machine to port 8888 (which the jupyter server is listening to) at the compute node.</p>
+<p><strong>N.B. This SSH connection need to be open during the time you use jupyter, it acts as a tunnel between your local computer and the jupyter server on the compute node.</strong></p>
+<p>If you get an error message that the port is unavailable you are likely running jupyter locally. In this case, forward another local port (e.g. 8900) to the compute node:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only run this if your local port 8888 is unavailable</span>
+you@your_own_machine:~&gt;<span class="w"> </span>ssh<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span><span class="m">8900</span>:nid005517-nmn:8888<span class="w">  </span>YOUR_USERNAME@lumi.csc.fi<span class="w"> </span>-i<span class="w"> </span>~/.ssh/lumi_ed25519
+</pre></div>
+</div>
+<p>Now you can open a browser pointing it to the local host, using the URL highlighted in the output. You should be greeted by a jupyter server directory listing.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../guide/" class="btn btn-neutral float-left" title="Instructor’s guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, GNN and Transformer workshop and individual contributors..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

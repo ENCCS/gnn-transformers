@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Summing or concatenating embeddings? &mdash; Graph Neural Networks and Transformers  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/overrides.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script data-domain="enccs.github.io/gnn-transformers" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex/" />
+    <link rel="search" title="Search" href="../../../search/" />
+    <link rel="next" title="Datasets, Dataloaders and Training" href="../../session_2/2a_full_training_pipeline/" />
+    <link rel="prev" title="Representing graphs for neural networks" href="../1a_representing_graphs_for_neural_networks_solutions/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../" class="icon icon-home">
+            Graph Neural Networks and Transformers
+              <img src="../../../_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Presentations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../presentations/">Presentations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks and colab</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks_and_colab/">Notebooks and Colab</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 1</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1a_representing_graphs_for_neural_networks_solutions/">Representing graphs for neural networks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 1 extra material</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Summing or concatenating embeddings?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-is-summing-embeddings-better-than-concatenation-for-aggregating-vectors">Why is summing embeddings better than concatenation for aggregating vectors?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#problem-with-concatenation-decide-on-dimensionality">Problem with concatenation - decide on dimensionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementing-concatenation-using-a-sum">Implementing concatenation using a sum</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#concatenation-and-sums-when-followed-by-a-linear-transformation">Concatenation and sums when followed by a linear transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sums-of-vectors-in-high-dimensions">Sums of vectors in high dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#when-you-shouldn-t-sum-vectors">When you shouldn’t sum vectors</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 2</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../session_2/2a_full_training_pipeline/">Datasets, Dataloaders and Training</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 3</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../session_3/3a_Graph_Neural_Network_Encoder_solutions/">Implementing a Graph Neural Network</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 4</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../session_4/4a_GNNs_to_Transformers/">GNNs to Transformers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../guide/">Instructor’s guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cluster guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lumi/">Running the material on the LUMI super computer</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../">Graph Neural Networks and Transformers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Summing or concatenating embeddings?</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/gnn_transformers/blob/main/content/notebooks/session_1/1b_vector_sums_vs_concatenation.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="summing-or-concatenating-embeddings">
+<h1>Summing or concatenating embeddings?<a class="headerlink" href="#summing-or-concatenating-embeddings" title="Permalink to this heading"></a></h1>
+<p>Online version <a class="reference external" href="http://colab.research.google.com/github/ENCCS/gnn_transformers_notebooks/blob/main/colab/1b_vector_sums_vs_concatenation.ipynb">here</a></p>
+<p>In neural networks, there are often cases where you might have two or more vectors from different sources, e.g. outputs of parallel networks like in the multihead attention of the Transformer or multiple embeddings from multiple categorical variables as inputs.</p>
+<p>One common way of dealing with this is to <em>concatenate</em> the multiple vectors to a single result. Let’s say we have two column vectors $\mathbf{u}$ and $\mathbf{v}$, then we think of the concatenation as:</p>
+<p>$$ \mathbf{x} = \begin{bmatrix} \mathbf{u} \ \mathbf{v} \end{bmatrix}$$</p>
+<p>What we’ll argue in this notebook is that a neater way of combining the vectors is by instead using a sum:</p>
+<p>$$ \mathbf{x} = \mathbf{u} + \mathbf{v}$$</p>
+<p>For <em>embeddings</em> in particular we’ll make a strong argument for this.</p>
+<section id="why-is-summing-embeddings-better-than-concatenation-for-aggregating-vectors">
+<h2>Why is summing embeddings better than concatenation for aggregating vectors?<a class="headerlink" href="#why-is-summing-embeddings-better-than-concatenation-for-aggregating-vectors" title="Permalink to this heading"></a></h2>
+<p>First we rely on these assumptions:</p>
+<ul class="simple">
+<li><p>The vectors to sum consists of <em>free parameters</em> or are some result from a computation including free parameters, they are free to take any value by our optimzation procedure.</p></li>
+<li><p>We will apply a linear transformation to the result of the aggregation</p></li>
+<li><p>the dimensionality of the aggregation result is the same for both aggregation methods</p></li>
+</ul>
+<section id="problem-with-concatenation-decide-on-dimensionality">
+<h3>Problem with concatenation - decide on dimensionality<a class="headerlink" href="#problem-with-concatenation-decide-on-dimensionality" title="Permalink to this heading"></a></h3>
+<p>First, consider aggregating by concatenation</p>
+<p>$$ \mathbf{x} = \begin{bmatrix} \mathbf{u} \ \mathbf{v} \end{bmatrix}$$</p>
+<p>Now let $\mathbf{x} \in \mathord{R}^d$, then $\mathbf{u} \in \mathord{R}^k, k &lt; d$ and $\mathbf{u} \in \mathord{R}^{d-k}$.</p>
+<p>In other words, we have to select the dimensionality of $\mathbf{u}$ and $\mathbf{v}$ so that it adds up to the desired $d$. How do we do this? Which of the vectors $\mathbf{u}$ and $\mathbf{v}$ <em>needs</em> the most capacity?</p>
+<p>If we instead use sums:</p>
+<p>$$ \mathbf{x} = \mathbf{u} + \mathbf{v}$$</p>
+<p>It’s easy to see that we just have the same dimensionality: $\mathbf{x}, \mathbf{u},  \mathbf{v} \in \mathord{R}^d$</p>
+</section>
+<section id="implementing-concatenation-using-a-sum">
+<h3>Implementing concatenation using a sum<a class="headerlink" href="#implementing-concatenation-using-a-sum" title="Permalink to this heading"></a></h3>
+<p>One argument for why sums are at least as exprissive as concatenation is to see that we can actually implement concatenation using sum. Let’s say we have decided on some dimensionality of our $\mathbf{u}$ and $\mathbf{v}$. We now have that  $\mathbf{u}$ and $\mathbf{v}$ are</p>
+<p>$$
+\mathbf{u} = \begin{bmatrix}
+u_1\
+\vdots\
+u_k
+\end{bmatrix}
+\mathbf{v} = \begin{bmatrix}
+v_1\
+\vdots\
+v_{d-k}
+\end{bmatrix}$$</p>
+<p>and</p>
+<p>$$
+\mathbf{x} = \begin{bmatrix} \mathbf{u} \ \mathbf{v} \end{bmatrix} =
+\begin{bmatrix}
+u_1\
+\vdots\
+u_k\
+v_1\
+\vdots\
+v_{d-k}
+\end{bmatrix}$$</p>
+<p>Now if we instead construct $0$-padded version of $\mathbf{u}$ and $\mathbf{v}$, $\mathbf{u}’$ and $\mathbf{v}’$</p>
+<p>$$
+\mathbf{u}’ = \begin{bmatrix}
+u_1\
+\vdots\
+u_k\
+0\
+\vdots\
+0
+\end{bmatrix}
+\mathbf{v}’ = \begin{bmatrix}
+0\
+\vdots\
+0\
+v_1\
+\vdots\
+v_{d-k}
+\end{bmatrix}$$</p>
+<p>We can implement the concatenation using this sum</p>
+<p>$$\mathbf{x} = \begin{bmatrix} \mathbf{u} \ \mathbf{v} \end{bmatrix} =
+\mathbf{u}’ + \mathbf{v}’
+$$</p>
+<p>So you see that concatenation can be seen as a special case of a sum by constructing the vectors to sum in a specific manner.</p>
+<p>In general though, we would not set parts of the vectors to sum to hard zeros, instead having them filled with values which the optimization procedure is free to use however is appropriate. This is a difference, the concatenation explicitly separates the subspaces for the vectors, which means that <em>learning</em> dynamics might behave differently.</p>
+<p>An analogy is to that of fully connected neural networks vs. convolutional. A convolutional layer can be seen as a special case of a fully connected layers, where many of the weights are hard zeroes and many of the other weights are tied. This constraint actually makes CNNs much more data efficient, in that they exploit prior beliefs about how to analyze spatially correlated date.</p>
+<p>This bias of concatenation to behave as sums of vectors in orthogonal subspaces can be useful when you <em>do</em> want to concatenate vectors but your framework might be limited (e.g. concatenating multiple tensors in a single operation).</p>
+</section>
+</section>
+<section id="concatenation-and-sums-when-followed-by-a-linear-transformation">
+<h2>Concatenation and sums when followed by a linear transformation<a class="headerlink" href="#concatenation-and-sums-when-followed-by-a-linear-transformation" title="Permalink to this heading"></a></h2>
+<p>There’s a better argument for summing instead of concatenating if we also assume that this aggregation will be multiplied with a matrix (as is often the case in neural networks).</p>
+<p>In that case, lets say we concatenate the vectors of <em>free variables</em> $\mathbf{u}$ and $\mathbf{v}$:</p>
+<p>$$\mathbf{x} = \begin{bmatrix} \mathbf{u} \ \mathbf{v} \end{bmatrix}$$</p>
+<p>Then the matrix multiplication $W \mathbf{x}$ is the same as
+$$
+W \mathbf{x} = W_u \mathbf{u} + W_v \mathbf{v}
+$$</p>
+<p>Where $W = \begin{bmatrix} W_u &amp; W_v \end{bmatrix}$</p>
+<p>If we use concatenation, the matrix-vector multiplication that the concatenation encounters will essentially perform a <em>sum</em> of the concatenated vectors <em>after</em> they have been linearily transformed.</p>
+<p>Since all the matrices and vectors are <em>freely parameterized</em>, we might just set $W_u = W_v$ and not loose anything in terms of expressivity, especially if we increase the dimensionality of $\mathbf{u}$ and $\mathbf{v}$ to match the one the concatenation would have had.</p>
+<p>Another way to think about this is to consider where $\mathbf{u}$ and $\mathbf{v}$ come from. Let’s say that they are actually the $i$th and $j$th column of two <em>embedding</em> matrices $E_u$ and $E_v$ (using numpy slice notation):</p>
+<p>$$\mathbf{u} = E_u[:,i]$$
+$$\mathbf{v} = E_u[:,j]$$</p>
+<p>Then</p>
+<p>$$
+W \mathbf{x} = W_u \mathbf{u} + W_v \mathbf{v} =  W_u E_u[:,i] + W_v E_u[:,j]
+$$</p>
+<p>Since these operations are associative, that is $W (E[:,i]) = (W E)[:, i]$, we might as well just set our embeddings to</p>
+<p>$$E_u’ = (W_u E_u), E_v’ = (W_v E_v)$$</p>
+<p>and use sum to achieve the exact same thing as concatenation would have achieved. Since these are all just free parameters (typically randomly initialized), the only difference between $E$ and $E’$ is the random distribution the values are drawn from.</p>
+<p>##An argument <strong>for</strong> concatenation</p>
+<p>If we would like our combination of vectors to <em>not</em> be permutation invariant, we <em>might</em> want to use concatenation. Let’s say the vectors we want to combine are actually a sequence, where each position in the sequence will be represented by a vector, but this might be the <em>same</em> vector.</p>
+<p>$S_1 = \text{“a white cat visited the house”}$</p>
+<p>$S_2 = \text{“a cat visited the white house”}$</p>
+<p>In this case, concatenation makes more sense</p>
+<p>$$S_1 = \begin{bmatrix} \mathbf{x}<em>\text{a} \ \mathbf{x}</em>\text{white} \ \mathbf{x}<em>\text{cat} \ \mathbf{x}</em>\text{visited} \ \mathbf{x}<em>\text{the} \<br />
+\mathbf{x}</em>\text{house} \<br />
+\end{bmatrix}$$</p>
+<p>$$S_2 = \begin{bmatrix} \mathbf{x}<em>\text{a} \ \mathbf{x}</em>\text{cat} \ \mathbf{x}<em>\text{visited} \ \mathbf{x}</em>\text{the} \ \mathbf{x}<em>\text{white} \
+\mathbf{x}</em>\text{house}
+\end{bmatrix}$$</p>
+<p>$$
+W S_1 = W_1 \mathbf{x}<em>\text{a} + W_2\mathbf{x}</em>\text{white} + W_3\mathbf{x}<em>\text{cat} + W_4 \mathbf{x}</em>\text{visited} + W_5\mathbf{x}<em>\text{the} +  W_6\mathbf{x}</em>\text{house}
+$$</p>
+<p>$$
+W S_2 = W_1 \mathbf{x}<em>\text{a} + W_2\mathbf{x}</em>\text{cat} + W_3\mathbf{x}<em>\text{visited} + W_4 \mathbf{x}</em>\text{the} + W_5\mathbf{x}<em>\text{white} +  W_6\mathbf{x}</em>\text{house}
+$$</p>
+<p>So in this case, assuming that the $\mathbf{x}$’s are fixed, the model can learn to <em>project</em> them differently depending on <em>position</em> in the input concatenation. The word vector $W_5\mathbf{x}<em>\text{white}$ will be different from $W_2\mathbf{x}</em>\text{white}$, even though it’s the same word.</p>
+<p>If we instead summed them, we could not separate these two sentence representations.</p>
+<p>Conversely, if we do want permutation invariance, concatenation is problematic since</p>
+<p>$$
+W_1 \mathbf{x}_1 + W_2 \mathbf{x}_2 \neq W_1 \mathbf{x}_2 + W_2 \mathbf{x}_2
+$$</p>
+<p>So if the combination <em>should</em> be permutation invariant, this will cause issues (the network can still <em>learn</em> to treat them permutation invariant learning similar  $W_1$ and $W_2$, but this will require much more training).</p>
+<p>We could <em>still</em> achieve the same thing using sums by having different embeddings based on position, so $\mathbf{x}<em>\text{2, white}$
+will be different from $\mathbf{x}</em>\text{5, white}$</p>
+<p>In practice, this would mean we create separate Embeddings for each position.</p>
+</section>
+<section id="sums-of-vectors-in-high-dimensions">
+<h2>Sums of vectors in high dimensions<a class="headerlink" href="#sums-of-vectors-in-high-dimensions" title="Permalink to this heading"></a></h2>
+<p>Intuitively, summing vectors <em>feels</em> wrong, since we’re essentially making information hard to disentangle. Let’s say we have som set of numbers $X = {x_1, …, x_n}$ and we form some value $y = x_i + x_j$. It’s difficult to determine exactly which numbers went into this sum, especially if the sum could have any number of terms. This intuition also tells us that summing vectors (so $X = { \mathbf{x}_1, … \mathbf{x}_n}$) should be bad, wont we do the same thing as before?</p>
+<p>We’ll make some experiments with sums of vectors and see how destructive this operation is</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1729</span><span class="p">)</span>
+
+<span class="n">num_values</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">sample_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
+
+<span class="n">raw_data_samples</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">sample_size</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">:</span>
+  <span class="n">raw_data_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">num_values</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
+  <span class="n">raw_data_samples</span><span class="p">[</span><span class="n">sample_size</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw_data_sample</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedding_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">]</span>
+<span class="n">embeddings_by_dim</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">num_embeddings</span> <span class="o">=</span> <span class="n">num_values</span>
+<span class="k">for</span> <span class="n">embedding_dim</span> <span class="ow">in</span> <span class="n">embedding_dims</span><span class="p">:</span>
+  <span class="c1"># We want to make embeddings have the same values in overlapping dimensions</span>
+  <span class="c1"># We reset the random seed to the same value to achieve this</span>
+  <span class="c1"># Numpy assumes c-contiguous order, so we need to generate the embeddings in</span>
+  <span class="c1"># transpose, and then transpose them back</span>
+  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1729</span><span class="p">)</span>  
+  <span class="c1"># This is the transpose of how we would typically have the embeddings laied out</span>
+  <span class="n">embeddings_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">num_embeddings</span><span class="p">)</span>  
+  <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings_T</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># Transpose them so they are in the assumed layout</span>
+  <span class="n">embeddings_by_dim</span><span class="p">[</span><span class="n">embedding_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">embeddings</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s creat our summed embeddings for the different sample sizes and embedding dimensionalities</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedded_samples</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">raw_data_sample</span> <span class="ow">in</span> <span class="n">raw_data_samples</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+  <span class="k">for</span> <span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embeddings</span> <span class="ow">in</span> <span class="n">embeddings_by_dim</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">embedded_sample</span> <span class="o">=</span> <span class="n">embeddings</span><span class="p">[</span><span class="n">raw_data_sample</span><span class="p">]</span>
+    <span class="n">summed_vectors</span> <span class="o">=</span> <span class="n">embedded_sample</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">embedded_samples</span><span class="p">[(</span><span class="n">sample_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)]</span> <span class="o">=</span> <span class="n">summed_vectors</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have now created sums of vectors for different number of vectors and different embedding dimensions. Let’s see if we can figure out what embedding vectors, and how many of them where actually part of these sums.</p>
+<p>We use a simple iterative algorithm which compares the sum using cosine similarity (dot product between normalized vectors) to at each iteration pick the vector with the highest cosine similarity to the sum at retracting that vector from the sum.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">estimate_vector_counts</span><span class="p">(</span><span class="n">vector_sum</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&#39;&#39;&#39;Try to figure out what vectors from *embeddings* was part of the </span>
+<span class="sd">  *vector_sum* of *n* vectors&#39;&#39;&#39;</span>
+  <span class="c1"># We&#39;ll use the cosine similarity to select the top vector at each iteration</span>
+  <span class="n">embeddings_normalized</span> <span class="o">=</span> <span class="n">embeddings</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">embeddings</span><span class="p">,</span> 
+                                                  <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                                                  <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">vector_sum</span><span class="p">[:]</span>
+  <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">x_normalized</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">cosine_sim</span> <span class="o">=</span> <span class="n">embeddings_normalized</span> <span class="o">@</span> <span class="n">x_normalized</span>
+    <span class="n">top_emb_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">cosine_sim</span><span class="p">)</span>
+    <span class="n">top_emb_vec</span> <span class="o">=</span> <span class="n">embeddings</span><span class="p">[</span><span class="n">top_emb_idx</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">top_emb_vec</span>
+    <span class="n">counts</span><span class="p">[</span><span class="n">top_emb_idx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">return</span> <span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Below we illustrate how well we can pick out vectors using this simple method. The histograms at each subfigure shows us the true count of the different vectors in blue, and the estimated count in orange.</p>
+<p>As you can see, when the embedding dimension increases, the ability to pick out the vector sum improves dramatically. This isn’t really suprising. If we had one-hot vectors representing the data, we could easily do the same by just looking at the count at each position, but you can see that we’re still getting decent results with an embedding dimension which is less than the number of vectors even though the embedding are random.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">),</span> <span class="n">ncols</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">embedding_dims</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">legend</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_size</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">embedding_dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">embedding_dims</span><span class="p">):</span>
+    <span class="n">true_sample_count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">raw_data_samples</span><span class="p">[</span><span class="n">sample_size</span><span class="p">])</span>
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings_by_dim</span><span class="p">[</span><span class="n">embedding_dim</span><span class="p">]</span>
+    <span class="n">vector_sum</span> <span class="o">=</span> <span class="n">embedded_samples</span><span class="p">[(</span><span class="n">sample_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)]</span>
+    <span class="n">estimated_counts</span> <span class="o">=</span> <span class="n">estimate_vector_counts</span><span class="p">(</span><span class="n">vector_sum</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">)</span>
+    <span class="n">true_x</span><span class="p">,</span> <span class="n">true_y</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="n">true_sample_count</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+    <span class="n">est_x</span><span class="p">,</span> <span class="n">est_y</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="n">estimated_counts</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="mf">0.35</span>
+    <span class="n">artist_1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">true_x</span><span class="p">)</span> <span class="o">-</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">true_y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Actual vector indices&quot;</span><span class="p">)</span>
+    <span class="n">artist_2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">est_x</span><span class="p">)</span> <span class="o">+</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">est_y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Estimated vector indices&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">legend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">legend</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Embedding dim </span><span class="si">{</span><span class="n">embedding_dim</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Number of vectors </span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>  <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+      <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Vector index&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Counter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span> <span class="o">-</span> <span class="n">Counter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can simplify the visualization of the data above, and tally the miscounts. This will allow us to get a better idea of how embedding dimension, number of embeddings vectors (vocabulary) and number of vectors in the sum relate to each other.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_miscounts</span><span class="p">(</span><span class="n">true_count</span><span class="p">,</span> <span class="n">estimated_count</span><span class="p">):</span>
+  <span class="n">counts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">true_count</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+  <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">est_count</span> <span class="ow">in</span> <span class="n">estimated_count</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">:</span>
+      <span class="n">counts</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-</span> <span class="n">est_count</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">counts</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">est_count</span>
+  <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we look at combinations of vocabulary size (number of distinct embedding vectors), embedding dimension and sample size (number of vectors in the sum).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">miscounts_num_distinct_vectors</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">))</span>
+
+
+<span class="n">num_distinct_vectors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1024</span><span class="p">]</span>
+<span class="n">embedding_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">70</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="mi">100</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)]</span>
+<span class="n">sample_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">num_vectors</span> <span class="ow">in</span> <span class="n">num_distinct_vectors</span><span class="p">:</span>
+  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1729</span><span class="p">)</span>
+  <span class="n">raw_data_samples</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">for</span> <span class="n">sample_size</span> <span class="ow">in</span> <span class="n">sample_sizes</span><span class="p">:</span>
+    <span class="n">raw_data_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">num_vectors</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
+    <span class="n">raw_data_samples</span><span class="p">[</span><span class="n">sample_size</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw_data_sample</span>
+  <span class="n">embeddings_by_dim</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="n">num_embeddings</span> <span class="o">=</span> <span class="n">num_vectors</span>
+  <span class="k">for</span> <span class="n">embedding_dim</span> <span class="ow">in</span> <span class="n">embedding_dims</span><span class="p">:</span>
+    <span class="c1"># We want to make embeddings have the same values in overlapping dimensions</span>
+    <span class="c1"># We reset the random seed to the same value to achieve this</span>
+    <span class="c1"># Numpy assumes c-contiguous order, so we need to generate the embeddings in</span>
+    <span class="c1"># transpose, and then transpose them back</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1729</span><span class="p">)</span>  
+    <span class="c1"># This is the transpose of how we would typically have the embeddings laied out</span>
+    <span class="n">embeddings_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">num_embeddings</span><span class="p">)</span>  
+    <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings_T</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># Transpose them so they are in the assumed layout</span>
+    <span class="n">embeddings_by_dim</span><span class="p">[</span><span class="n">embedding_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">embeddings</span>
+  <span class="n">embedded_samples</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">for</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">raw_data_sample</span> <span class="ow">in</span> <span class="n">raw_data_samples</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">embedding_dim</span><span class="p">,</span> <span class="n">embeddings</span> <span class="ow">in</span> <span class="n">embeddings_by_dim</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="n">embedded_sample</span> <span class="o">=</span> <span class="n">embeddings</span><span class="p">[</span><span class="n">raw_data_sample</span><span class="p">]</span>
+      <span class="n">summed_vectors</span> <span class="o">=</span> <span class="n">embedded_sample</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+      <span class="n">embedded_samples</span><span class="p">[(</span><span class="n">sample_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)]</span> <span class="o">=</span> <span class="n">summed_vectors</span>
+
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample_size</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">embedding_dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">embedding_dims</span><span class="p">):</span>
+      <span class="n">true_sample_count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">raw_data_samples</span><span class="p">[</span><span class="n">sample_size</span><span class="p">])</span>
+      <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings_by_dim</span><span class="p">[</span><span class="n">embedding_dim</span><span class="p">]</span>
+      <span class="n">vector_sum</span> <span class="o">=</span> <span class="n">embedded_samples</span><span class="p">[(</span><span class="n">sample_size</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)]</span>
+      <span class="n">estimated_counts</span> <span class="o">=</span> <span class="n">estimate_vector_counts</span><span class="p">(</span><span class="n">vector_sum</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">)</span>
+      <span class="n">miscount</span> <span class="o">=</span> <span class="n">get_miscounts</span><span class="p">(</span><span class="n">true_sample_count</span><span class="p">,</span> <span class="n">estimated_counts</span><span class="p">)</span>
+      <span class="n">miscounts_num_distinct_vectors</span><span class="p">[</span><span class="n">num_vectors</span><span class="p">][</span><span class="n">sample_size</span><span class="p">][</span><span class="n">embedding_dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">miscount</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">num_vectors</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">num_distinct_vectors</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
+  <span class="n">miscounts_by_sample_size</span> <span class="o">=</span> <span class="n">miscounts_num_distinct_vectors</span><span class="p">[</span><span class="n">num_vectors</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">miscounts_by_emb_dim</span> <span class="ow">in</span> <span class="n">miscounts_by_sample_size</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">emb_dims</span><span class="p">,</span> <span class="n">miscount</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="n">miscounts_by_emb_dim</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">emb_dims</span><span class="p">,</span> <span class="n">miscount</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Sample size </span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Vocabulary size </span><span class="si">{</span><span class="n">num_vectors</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Embedding dimension&#39;</span><span class="p">)</span>
+  <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Miscounts&#39;</span><span class="p">)</span>
+  
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see, with sums of random vectors we can with quite good accuracy pick out exactly how many of each vector was part of the sum. Since a neural network relies on very similar mechanisms (dot product between weight vector and inputs), they also have this ability to pick out exactly what vector was part of a sum, provided the dimensionality is high enough.</p>
+<p>In the case of neural networks, we often opimize the embedding vectors, so the results above should be thought of as a worst case. Our optimization can learn to set the embedding vectors so they perform as well as possible for the desired task.</p>
+</section>
+<section id="when-you-shouldn-t-sum-vectors">
+<h2>When you shouldn’t sum vectors<a class="headerlink" href="#when-you-shouldn-t-sum-vectors" title="Permalink to this heading"></a></h2>
+<p>In the examples we’ve shown above, the arguments for summing over concatenating comes from the assumption that the vectors are <em>high dimensional</em> and contain <em>free parameters</em>, we can set their values to anything. This is why we can say something like <em>“we could just replace the vector matrix $W_u \mathbf{u}$ with $\mathbf{u}’$”</em>. If they are free, say $\mathbf{u}$ is actually a vector of measurements, then the arguments will not hold, sum and concatenation followed by a matrix multiplication will not be equivalent in terms of expressivity.</p>
+<p>Also, if you have a set of scalars you would like to use as inputs, you can’t sum them toghether and hope it will work (if they are in very different ranges, the nerual network might learn to disentangle this kind of sum, but we often standardize numerical variables so don’t rely on this).</p>
+<p>Likewise, if you have two vectors of different concatenated scalar <em>measurements</em>, summing them together followed by a matrix multiplication <em>will not</em> be the same as concatenating them.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../1a_representing_graphs_for_neural_networks_solutions/" class="btn btn-neutral float-left" title="Representing graphs for neural networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../session_2/2a_full_training_pipeline/" class="btn btn-neutral float-right" title="Datasets, Dataloaders and Training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, GNN and Transformer workshop and individual contributors..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

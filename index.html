@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graph Neural Networks and Transformer workshop &mdash; Graph Neural Networks and Transformers  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/overrides.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script data-domain="enccs.github.io/gnn-transformers" defer="defer" src="https://plausible.io/js/script.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex/" />
+    <link rel="search" title="Search" href="search/" />
+    <link rel="next" title="Presentations" href="presentations/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Graph Neural Networks and Transformers
+              <img src="_static/ENCCS.jpg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Presentations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="presentations/">Presentations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Notebooks and colab</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks_and_colab/">Notebooks and Colab</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 1</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_1/1a_representing_graphs_for_neural_networks_solutions/">Representing graphs for neural networks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 1 extra material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_1/1b_vector_sums_vs_concatenation/">Summing or concatenating embeddings?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 2</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_2/2a_full_training_pipeline/">Datasets, Dataloaders and Training</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 3</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_3/3a_Graph_Neural_Network_Encoder_solutions/">Implementing a Graph Neural Network</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Session 4</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_4/4a_GNNs_to_Transformers/">GNNs to Transformers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/">Instructor’s guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cluster guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lumi/">Running the material on the LUMI super computer</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Graph Neural Networks and Transformers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Graph Neural Networks and Transformer workshop</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ENCCS/gnn_transformers/blob/main/content/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="graph-neural-networks-and-transformer-workshop">
+<h1>Graph Neural Networks and Transformer workshop<a class="headerlink" href="#graph-neural-networks-and-transformer-workshop" title="Permalink to this heading"></a></h1>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZS00tnHVRbU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>Graph Neural Networks and Transformers are neural network architectures which are quickly gaining in popularity due to how many problems can easily be modeled as graphs and sets. In this workshop we will take a deep dive into these architecture and how you can use them to solve complex problems where the input domain can be of different size.</p>
+<div class="admonition-prerequisites prerequisites admonition" id="prerequisites-0">
+<p class="admonition-title">Prerequisites</p>
+<p>This material assumes familiarity with deep learning, attendants should have implemented neural networks before using PyTorch. It also assumes basic understanding of linear algebra. Experience in working with graphs will make the material easier to go through, but is not considered a prerequsite.</p>
+</div>
+<p>The material is divided into four sessions, each corresponding to roughly 2 hours of work. The material is designed to be used on Google Colab, you can find links to the online notebooks in the offline versions maintained here.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Presentations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="presentations/">Presentations</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Notebooks and colab</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks_and_colab/">Notebooks and Colab</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Session 1</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_1/1a_representing_graphs_for_neural_networks_solutions/">Representing graphs for neural networks</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Session 1 extra material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_1/1b_vector_sums_vs_concatenation/">Summing or concatenating embeddings?</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Session 2</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_2/2a_full_training_pipeline/">Datasets, Dataloaders and Training</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Session 3</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_3/3a_Graph_Neural_Network_Encoder_solutions/">Implementing a Graph Neural Network</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Session 4</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/session_4/4a_GNNs_to_Transformers/">GNNs to Transformers</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/">Instructor’s guide</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Cluster guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lumi/">Running the material on the LUMI super computer</a></li>
+</ul>
+</div>
+<section id="who-is-the-course-for">
+<span id="learner-personas"></span><h2>Who is the course for?<a class="headerlink" href="#who-is-the-course-for" title="Permalink to this heading"></a></h2>
+<p>This course is aimed at students, researchers, engineers and programmers who are already familiar with implementing neural networks in PyTorch and wants to understand the details about graph neural networks and transformers. The focus is on explaining the architectures and the choices involved in implementing a GNN, but does not look into detail of how to model diverse problems using the frameworks. The lessons assumes that the participant is familiar with:</p>
+<ul class="simple">
+<li><p>Programming in PyTorch - having implemented and trained a simple neural network</p></li>
+<li><p>Linear algebra - Basic understanding of linear transformations and vector arithmetics</p></li>
+<li><p>Machine learning - Basic understanding of training procedures and data issues</p></li>
+</ul>
+</section>
+<section id="about-the-course">
+<h2>About the course<a class="headerlink" href="#about-the-course" title="Permalink to this heading"></a></h2>
+<p>This lesson material is developed by the <a class="reference external" href="https://enccs.se/">EuroCC National Competence Center
+Sweden (ENCCS)</a> and the <a class="reference external" href="https://ri.se/">Research Institutes of Sweden</a>.</p>
+<p>The lesson material is licensed under <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA-4.0</a> and can be reused in any form
+(with appropriate credit) in other courses and workshops.
+Instructors who wish to teach this lesson can refer to the <a class="reference internal" href="guide/"><span class="doc">Instructor’s guide</span></a> for
+practical advice.</p>
+</section>
+<section id="lesson-format">
+<h2>Lesson format<a class="headerlink" href="#lesson-format" title="Permalink to this heading"></a></h2>
+<p>The workshop material is based on Jupyter Notebooks designed for Google Colaboratory.
+You can find links to the noteboks under each lesson block. Before starting to work on the notebooks,
+you should create your own copy under <cite>File-&gt;Save a copy in Drive</cite>. This way changes you make to the
+notebook will remain, otherwise they will be lost when you close the colab window.</p>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<p>There are a growing number of resourses for graph neural network, here are good places to start:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://web.stanford.edu/class/cs224w/">Stanford CS224W: Machine Learning with Graphs</a>. This material covers all manner of statistical learning on graphs, as well as many fundamental topics from graph theory. The lectures and notebook exercises from previous offerings of the course are available online.</p></li>
+<li><p><a class="reference external" href="https://geometricdeeplearning.com/">Geometrical Deep Learning</a> : The Erlangen program of ML: This work by Bronstein et. al. takes a unifying perspective
+on Graph Neural Networks and show how it encapsulates very general ideas in deep learning. There are multiple treatments, all of which are excellent:</p>
+<ul>
+<li><p><a class="reference external" href="https://iclr.cc/virtual/2021/invited-talk/3717">Invited talk</a> at ICLR 2021 lays out the ideas</p></li>
+<li><p>The pre-print book <a class="reference external" href="https://arxiv.org/abs/2104.13478">Geometric Deep Learning: Grids, Groups, Graphs, Geodesics and Gauges</a> expands on this.</p></li>
+<li><p>A series of <a class="reference external" href="https://youtu.be/PtA0lg_e5nAwhich">video lecture</a> covers the material in depth.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/">PyTorch Geometric</a>: This framework is quickly becoming the <cite>de-facto</cite> package for working with Graph Neural Networks. It doesn’t support the Transformer approach we show in this workshop, but for regular Graph Neural Networks it’s a high level framework with efficient kernels for sparse computation.</p></li>
+</ul>
+</section>
+<section id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h2>
+<p>The lesson file structure and browsing layout is inspired by and derived from
+<a class="reference external" href="https://github.com/coderefinery/sphinx-lesson">work</a> by <a class="reference external" href="https://coderefinery.org/">CodeRefinery</a> licensed under the <a class="reference external" href="http://opensource.org/licenses/mit-license.html">MIT license</a>. We have copied and adapted
+most of their license text.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="presentations/" class="btn btn-neutral float-right" title="Presentations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, GNN and Transformer workshop and individual contributors..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
